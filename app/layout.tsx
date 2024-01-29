@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ScreenContainer } from "@/components/ScreenContainer";
+import { Navigation } from "@/components/Navigation";
 import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,7 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, "bg-slate-800 text-gray-300")}>{children}</body>
+      <body className={cn(inter.className, "bg-slate-800 text-gray-300")}>
+        <ScreenContainer>
+            <Navigation />
+            {children}
+        </ScreenContainer>
+      </body>
     </html>
   );
 }

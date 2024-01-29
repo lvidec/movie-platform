@@ -16,6 +16,10 @@ const config = {
         protocol: 'https',
         hostname: 'images.justwatch.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.justwatch.com',
+      },
     ],
   },
 };
