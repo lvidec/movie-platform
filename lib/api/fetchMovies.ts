@@ -1,4 +1,4 @@
-import { Movies } from "../types";
+import { Movies } from "@/lib/types";
 
 export const IMG_ENDPOINT = "https://image.tmdb.org/t/p/w500/";
 export const API_ENDPOINT = "https://api.themoviedb.org/3";

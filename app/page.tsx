@@ -1,6 +1,8 @@
 import { TrendingMoviesInTimeWindow } from "@/components/TrendingMoviesInTimeWindow";
+import { MoviesCarousel } from "@/components/MoviesCarousel";
 import { fetchDiscoverMovies } from "@/lib/api/fetchMovies";
 import { FaRegCalendarCheck } from "react-icons/fa";
+import { StreamingCharts } from "@/components/StreamingCharts";
 
 export default async function Home() {
   const popularMovies = await fetchDiscoverMovies();
@@ -11,6 +13,8 @@ export default async function Home() {
         Discover daily <FaRegCalendarCheck className="inline" />
       </h1>
       <TrendingMoviesInTimeWindow />
+      <StreamingCharts movies={popularMovies.results} title="Streming Charts Today" />
+      <MoviesCarousel movies={popularMovies.results} title="Discover new movies" />
     </main>
   );
 }
