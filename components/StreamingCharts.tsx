@@ -1,9 +1,9 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/Carousel";
-import { ResultMovie } from "@/lib/types";
+import { MovieResult } from "@/lib/types";
 import { ChartCards } from "@/components/ChartCards";
 
 interface StreamingChartsProps {
-  movies: ResultMovie[];
+  movies: MovieResult[];
   title: string;
 }
 

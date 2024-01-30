@@ -42,7 +42,9 @@ const ChartCard = ({ movie, idx }: ChartCardProps) => {
   return (
     <Link href={transformTitleIntoUrl(movie.title)}>
       <div className="w-full p-0 justify-start flex mb-4">
-        <span className="text-6xl font-bold opacity-20 -tracking-[6px] self-center">{idx + 1}</span>
+        <span className={`text-6xl font-bold opacity-20 -tracking-[6px] self-center ${idx === 0 && "ml-3"}`}>
+          {idx + 1}
+        </span>
         <Image
           src={`${IMG_ENDPOINT}${movie.poster_path}`}
           alt={movie.title}
