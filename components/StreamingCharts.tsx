@@ -1,8 +1,5 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/Carousel";
-import { IMG_ENDPOINT } from "@/lib/api/fetchMovies";
-import Image from "next/image";
 import { ResultMovie } from "@/lib/types";
-import Link from "next/link";
 import { ChartCards } from "@/components/ChartCards";
 
 interface StreamingChartsProps {
@@ -11,7 +8,7 @@ interface StreamingChartsProps {
 }
 
 export async function StreamingCharts({ movies, title }: StreamingChartsProps) {
-  const netflixMovies: ResultMovie[] = [...movies];
+  const netflixMovies = [...movies];
   const disneyMovies = [...movies];
 
   return (

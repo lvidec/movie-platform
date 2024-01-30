@@ -2,6 +2,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { IMG_ENDPOINT, fetchTrendingMoviesInTimeWindow } from "@/lib/api/fetchMovies";
 import Image from "next/image";
 import Link from "next/link";
+import { transformTitleIntoUrl } from "@/lib/utils";
 
 export async function TrendingMoviesInTimeWindow() {
   const { results } = await fetchTrendingMoviesInTimeWindow("day");
@@ -11,7 +12,7 @@ export async function TrendingMoviesInTimeWindow() {
       <CarouselContent className="-ml-2 md:-ml-4">
         {results.map((movie) => (
           <CarouselItem key={movie.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-[32%] relative">
-            <Link href="#">
+            <Link href={transformTitleIntoUrl(movie.title)}>
               <div className="w-full h-[200px] p-0 justify-start">
                 <Image
                   src={`${IMG_ENDPOINT}${movie.backdrop_path}`}

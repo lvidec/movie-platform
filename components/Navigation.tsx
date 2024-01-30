@@ -24,7 +24,7 @@ export function Navigation() {
             />
           </li>
           <li>
-            <Link href={"/home"} className={`${currentPath === "/" ? "font-semibold text-white" : ""}`}>
+            <Link href={"/"} className={`${currentPath === "/" ? "font-semibold text-white" : ""}`}>
               Home
             </Link>
           </li>

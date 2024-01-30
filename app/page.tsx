@@ -13,8 +13,8 @@ export default async function Home() {
         Discover daily <FaRegCalendarCheck className="inline" />
       </h1>
       <TrendingMoviesInTimeWindow />
-      <StreamingCharts movies={popularMovies.results} title="Streming Charts Today" />
-      <MoviesCarousel movies={popularMovies.results} title="Discover new movies" />
+      <StreamingCharts movies={popularMovies} title="Streming Charts Today" />
+      <MoviesCarousel movies={popularMovies} title="Discover new movies" />
     </main>
   );
 }
