@@ -1,10 +1,11 @@
 import Image from "next/image";
-import { ResultMovie } from "@/lib/types";
+import { MovieResult } from "@/lib/types";
 import Link from "next/link";
 import { IMG_ENDPOINT } from "@/lib/api/fetchMovies";
+import { transformTitleIntoUrl } from "@/lib/utils";
 
 interface ChartCardsProps {
-  movies: ResultMovie[];
+  movies: MovieResult[];
   title: string;
 }
 
@@ -33,13 +34,13 @@ export function ChartCards({ movies, title }: ChartCardsProps) {
 }
 
 interface ChartCardProps {
-  movie: ResultMovie;
+  movie: MovieResult;
   idx: number;
 }
 
 const ChartCard = ({ movie, idx }: ChartCardProps) => {
   return (
-    <Link href={"#"}>
+    <Link href={transformTitleIntoUrl(movie.title)}>
       <div className="w-full p-0 justify-start flex mb-4">
         <span className="text-6xl font-bold opacity-20 -tracking-[6px] self-center">{idx + 1}</span>
         <Image
