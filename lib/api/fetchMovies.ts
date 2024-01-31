@@ -1,4 +1,4 @@
-import { Movies, MovieResult, MovieDetails } from "@/lib/types";
+import { Movies, MovieResult, MovieDetails, Genres } from "@/lib/types";
 
 export const IMG_ENDPOINT = "https://image.tmdb.org/t/p/w500/";
 export const API_ENDPOINT = "https://api.themoviedb.org/3";
@@ -33,8 +33,14 @@ export const fetchDiscoverMoviesPerPage = async (pageNumber: number) => {
   return fetchApi<Movies>(url);
 };
 
+export const fetchPopularMoviesPerPage = async (pageNumber: number) => {
+  const url = `${API_ENDPOINT}/movie/popular?page=${pageNumber}`;
+
+  return fetchApi<Movies>(url);
+};
+
 export const fetchDiscoverMovies = async (): Promise<MovieResult[]> => {
-  const pagesToFetch = [1, 2, 3, 4, 5];
+  const pagesToFetch = [1];
 
   try {
     const movies = await Promise.all(pagesToFetch.map((pageNum) => fetchDiscoverMoviesPerPage(pageNum)));
@@ -42,6 +48,19 @@ export const fetchDiscoverMovies = async (): Promise<MovieResult[]> => {
     return movies.flatMap((movie) => movie.results);
   } catch (error) {
     console.error("Error fetching all discover movies:", error);
+    return [];
+  }
+};
+
+export const fetchPopularMovies = async (): Promise<MovieResult[]> => {
+  const pagesToFetch = [1, 2, 3];
+
+  try {
+    const movies = await Promise.all(pagesToFetch.map((pageNum) => fetchPopularMoviesPerPage(pageNum)));
+
+    return movies.flatMap((movie) => movie.results);
+  } catch (error) {
+    console.error("Error fetching all popular movies:", error);
     return [];
   }
 };
@@ -56,4 +75,10 @@ export const fetchTrendingMoviesInTimeWindow = async (timeWindow: TimeWindowType
   const url = `${API_ENDPOINT}/trending/movie/${timeWindow}?language=en-US`;
 
   return fetchApi<Movies>(url);
+};
+
+export const fetchMovieGenreList = async () => {
+  const url = `${API_ENDPOINT}/genre/movie/list`;
+
+  return fetchApi<Genres>(url);
 };
