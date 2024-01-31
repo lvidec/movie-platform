@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { transformTitleIntoUrl } from "@/lib/utils";
 
+//Todo: make dates display nicer
+
 export async function TrendingMoviesInTimeWindow() {
   const { results } = await fetchTrendingMoviesInTimeWindow("day");
 

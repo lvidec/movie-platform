@@ -20,6 +20,10 @@ const config = {
         protocol: 'https',
         hostname: 'www.justwatch.com',
       },
+      {
+        protocol: 'https',
+        hostname: 't4.ftcdn.net',
+      },
     ],
   },
 };

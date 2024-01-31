@@ -25,7 +25,7 @@ interface ToggleFavoredMovieProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-function ToggleFavoredMovie({ movieId, children }: ToggleFavoredMovieProps) {
+function ToggleFavoredMovie({ movieId, children, className }: ToggleFavoredMovieProps) {
   const [isFavored, setIsFavored] = useState(false);
 
   useEffect(() => {
@@ -48,6 +48,7 @@ function ToggleFavoredMovie({ movieId, children }: ToggleFavoredMovieProps) {
           setIsFavored(!isFavored);
           toggleFavoriteMovie(movieId);
         }}
+        className={className}
       >
         {children}
       </button>
@@ -66,7 +67,7 @@ function FavoriteIcons({ iconSize, className }: FavoriteIconsProps) {
     <>
       <MdFavorite
         size={iconSize}
-        className={cn("transition-all duration-500", className, isFavored ? "opacity-100" : "opacity-0")}
+        className={cn("transition-all duration-500 text-amber-300", className, isFavored ? "opacity-100" : "opacity-0")}
       />
       <MdFavoriteBorder
         size={iconSize}

@@ -17,7 +17,7 @@ interface MoviesCarouselProps {
 export function MoviesCarousel({ movies, title }: MoviesCarouselProps) {
   return (
     <div>
-      <h2 className="text-3xl font-bold mb-2">{title}</h2>
+      <h2 className="text-3xl text-amber-300 font-bold mb-4">{title}</h2>
       <Carousel plugins={[WheelGesturesPlugin()]}>
         <CarouselContent className="-ml-2 md:-ml-4">
           {movies.map((movie) => (
@@ -34,9 +34,11 @@ export function MoviesCarousel({ movies, title }: MoviesCarouselProps) {
                 </div>
               </Link>
               <div>
-                <p>Favor the movie</p>
-                <ToggleFavoredMovie movieId={movie.id.toString()} className="m-auto" >
-                  <ToggleFavoredMovie.FavoriteIcons iconSize={30} />
+                <ToggleFavoredMovie movieId={movie.id.toString()} className="w-full relative h-[50px]">
+                  <ToggleFavoredMovie.FavoriteIcons
+                    iconSize={30}
+                    className="m-auto absolute top-[10px] right-1/2 translate-x-1/2"
+                  />
                 </ToggleFavoredMovie>
               </div>
             </CarouselItem>
