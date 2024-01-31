@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(montserrat.className, "bg-slate-800 text-gray-300")}>
+      <body className={cn(montserrat.className, "bg-slate-900 text-gray-300")}>
         <ScreenContainer className="mt-4 ">
           <Navigation />
           {children}

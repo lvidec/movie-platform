@@ -2,21 +2,13 @@
 
 import { MovieDetails } from "@/lib/types";
 import Image from "next/image";
-import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
-import { isMovieWithIdFavored, toggleFavoriteMovie } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import ToggleFavoredMovie from "@/components/ToggleFavoredMovie";
 
 interface WatchAndFavorMovieProps {
   movieDetails: MovieDetails;
 }
 
 export function WatchAndFavorMovie({ movieDetails }: WatchAndFavorMovieProps) {
-  const [isFavored, setIsFavored] = useState(false);
-
-  useEffect(() => {
-    setIsFavored(isMovieWithIdFavored(movieDetails.id.toString()));
-  }, [movieDetails.id]);
-
   return (
     <>
       <h2 className="font-bold text-2xl">
@@ -35,27 +27,12 @@ export function WatchAndFavorMovie({ movieDetails }: WatchAndFavorMovieProps) {
         <p>
           Subscriptions <span className="text-amber-300">HD</span>
         </p>
-        <button
-          onClick={() => {
-            setIsFavored(!isFavored);
-            toggleFavoriteMovie(movieDetails.id.toString());
-          }}
-        >
-          <MdFavorite
-            size={50}
-            data-favor
-            className={`transition-all duration-500 absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 ${
-              isFavored ? "opacity-100" : "opacity-0"
-            }`}
+        <ToggleFavoredMovie movieId={movieDetails.id.toString()}>
+          <ToggleFavoredMovie.FavoriteIcons
+            iconSize={50}
+            className="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2"
           />
-          <MdFavoriteBorder
-            size={50}
-            data-isus
-            className={`transition-all duration-500 absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 ${
-              isFavored ? "opacity-0" : "opacity-100"
-            }`}
-          />
-        </button>
+        </ToggleFavoredMovie>
       </div>
     </>
   );

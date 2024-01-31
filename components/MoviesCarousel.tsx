@@ -1,20 +1,24 @@
+"use client";
+
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/Carousel";
 import { IMG_ENDPOINT } from "@/lib/api/fetchMovies";
 import Image from "next/image";
 import { MovieResult } from "@/lib/types";
 import Link from "next/link";
 import { transformTitleIntoUrl } from "@/lib/utils";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
+import ToggleFavoredMovie from "@/components/ToggleFavoredMovie";
 
 interface MoviesCarouselProps {
   movies: MovieResult[];
   title: string;
 }
 
-export async function MoviesCarousel({ movies, title }: MoviesCarouselProps) {
+export function MoviesCarousel({ movies, title }: MoviesCarouselProps) {
   return (
     <div>
-      <h2 className="text-2xl font-bold pb-2">{title}</h2>
-      <Carousel>
+      <h2 className="text-3xl font-bold mb-2">{title}</h2>
+      <Carousel plugins={[WheelGesturesPlugin()]}>
         <CarouselContent className="-ml-2 md:-ml-4">
           {movies.map((movie) => (
             <CarouselItem key={movie.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-[12.5%] relative">
@@ -29,6 +33,12 @@ export async function MoviesCarousel({ movies, title }: MoviesCarouselProps) {
                   />
                 </div>
               </Link>
+              <div>
+                <p>Favor the movie</p>
+                <ToggleFavoredMovie movieId={movie.id.toString()} className="m-auto" >
+                  <ToggleFavoredMovie.FavoriteIcons iconSize={30} />
+                </ToggleFavoredMovie>
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>
