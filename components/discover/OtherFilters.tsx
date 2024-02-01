@@ -5,7 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/Popover
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
 import { IoIosArrowDropdown } from "react-icons/io";
-import { FIRST_YEAR, LAST_YEAR, YearDistance } from "@/components/discover/ShowMoviesByFilter";
+import { default_year_distance, YearDistance } from "@/components/discover/ShowMoviesByFilter";
 import { FaCheckCircle } from "react-icons/fa";
 import { useState } from "react";
 
@@ -16,13 +16,15 @@ interface OtherFiltersProps {
 
 export function OtherFilters({ yearDistance, handleUpdateYearDistance }: OtherFiltersProps) {
   const [filterDistance, setFilterDistance] = useState<YearDistance>(yearDistance);
+  const isFilterApplied =
+    yearDistance.from !== default_year_distance.from || yearDistance.until !== default_year_distance.until;
 
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="ghost" className="text-lg">
+        <Button variant={isFilterApplied ? "outline" : "ghost"} className="text-lg">
           Other filters
-          <IoIosArrowDropdown className="ml-2" />
+          <IoIosArrowDropdown className="ml-2" size={20} />
         </Button>
       </PopoverTrigger>
       <PopoverContent>
@@ -35,7 +37,6 @@ export function OtherFilters({ yearDistance, handleUpdateYearDistance }: OtherFi
               <Label htmlFor="from">From:</Label>
               <Input
                 id="from"
-                defaultValue={FIRST_YEAR}
                 className="col-span-2 h-8"
                 value={filterDistance.from}
                 onChange={(e) => setFilterDistance({ ...filterDistance, from: Number(e.target.value) })}
@@ -45,7 +46,6 @@ export function OtherFilters({ yearDistance, handleUpdateYearDistance }: OtherFi
               <Label htmlFor="until">Until:</Label>
               <Input
                 id="until"
-                defaultValue={LAST_YEAR}
                 className="col-span-2 h-8"
                 value={filterDistance.until}
                 onChange={(e) => setFilterDistance({ ...filterDistance, until: Number(e.target.value) })}

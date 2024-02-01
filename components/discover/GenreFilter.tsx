@@ -22,7 +22,7 @@ export function GenreFilter({ filterStates, handleUpdateFilterState }: FilterPro
       <DropdownMenuTrigger asChild>
         <Button variant={isFilterApplied ? "outline" : "ghost"} className="text-lg">
           Genre
-          <IoIosArrowDropdown className="ml-2" />
+          <IoIosArrowDropdown className="ml-2" size={20} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
