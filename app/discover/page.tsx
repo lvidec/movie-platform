@@ -1,5 +1,5 @@
 import { fetchMovieGenreList, fetchPopularMovies } from "@/lib/api/fetchMovies";
-import { ShowMoviesByFilter } from "@/components/ShowMoviesByFilter";
+import { ShowMoviesByFilter } from "@/components/discover/ShowMoviesByFilter";
 
 export default async function Page() {
   const popularMovies = await fetchPopularMovies();

@@ -1,6 +1,6 @@
 import { fetchDiscoverMovies, fetchMovieDetailsById } from "@/lib/api/fetchMovies";
 import { transformTitleIntoUrl } from "@/lib/utils";
-import { MovieDetails } from "@/components/MovieDetails";
+import { MovieDetails } from "@/components/details/MovieDetails";
 
 export const dynamicParams = false;
 

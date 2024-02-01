@@ -1,7 +1,7 @@
-import { Search } from "@/components/Search";
+import { Search } from "@/components/navigation/Search";
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from "@/components/ui/Menubar";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { NavigationLinks } from "@/components/NavigationLinks";
+import { NavigationLinks } from "@/components/navigation/NavigationLinks";
 
 export function Navigation() {
   return (

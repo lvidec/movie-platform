@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { IMG_ENDPOINT } from "@/lib/api/fetchMovies";
 import { MovieDetails } from "@/lib/types";
-import { WatchAndFavorMovie } from "@/components/WatchAndFavorMovie";
+import { WatchAndFavorMovie } from "@/components/details/WatchAndFavorMovie";
 
 interface MovieDetailsProps {
   movieDetails: MovieDetails;

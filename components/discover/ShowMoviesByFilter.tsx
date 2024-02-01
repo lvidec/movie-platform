@@ -1,12 +1,12 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
-import { GenreFilter } from "@/components/GenreFilter";
+import { GenreFilter } from "@/components/discover/GenreFilter";
 import { MoviesCarouselSkeleton } from "@/components/skeletons/MoviesCarouselSkeleton";
 import { MoviesCarousel } from "@/components/MoviesCarousel";
-import { GenreMovies } from "@/components/GenreMovies";
+import { GenreMovies } from "@/components/discover/GenreMovies";
 import { Genre, MovieResult } from "@/lib/types";
-import { OtherFilters } from "@/components/OtherFilters";
+import { OtherFilters } from "@/components/discover/OtherFilters";
 import { getYearFromDate } from "@/lib/utils";
 
 interface ShowMoviesByFilterProps {
@@ -53,8 +53,6 @@ export function ShowMoviesByFilter({ popularMovies, allGenres }: ShowMoviesByFil
 
         return yearDistance.from <= releaseYearOfMovie && releaseYearOfMovie <= yearDistance.until;
       });
-
-      console.log(filteredMovies);
 
       setMoviesToShow(filteredMovies);
     }

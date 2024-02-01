@@ -1,8 +1,8 @@
-import { TrendingMoviesInTimeWindow } from "@/components/TrendingMoviesInTimeWindow";
+import { TrendingMoviesInTimeWindow } from "@/components/home/TrendingMoviesInTimeWindow";
 import { MoviesCarousel } from "@/components/MoviesCarousel";
 import { fetchDiscoverMovies } from "@/lib/api/fetchMovies";
 import { FaRegCalendarCheck } from "react-icons/fa";
-import { StreamingCharts } from "@/components/StreamingCharts";
+import { StreamingCharts } from "@/components/home/StreamingCharts";
 import { Suspense } from "react";
 import { TrendingMoviesSkeleton } from "@/components/skeletons/TrendingMoviesSkeleton";
 import { StreamingChartsSkeleton } from "@/components/skeletons/StreamingChartsSkeleton";
