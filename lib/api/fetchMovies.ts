@@ -53,7 +53,7 @@ export const fetchDiscoverMovies = async (): Promise<MovieResult[]> => {
 };
 
 export const fetchPopularMovies = async (): Promise<MovieResult[]> => {
-  const pagesToFetch = [1, 2, 3];
+  const pagesToFetch = [1, 5, 10];
 
   try {
     const movies = await Promise.all(pagesToFetch.map((pageNum) => fetchPopularMoviesPerPage(pageNum)));

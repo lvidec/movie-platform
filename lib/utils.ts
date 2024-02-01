@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { format } from "date-fns";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -27,8 +28,12 @@ export const toggleFavoriteMovie = (movieId: string) => {
   localStorage.setItem("favorite-movies", favoriteMoviesIds.toString());
 };
 
+export const getYearFromDate = (date: string) => {
+  return format(new Date(date), "yyyy");
+};
+
 const checkAndSplitMovies = () => {
-  if (typeof localStorage === 'undefined') return;
+  if (typeof localStorage === "undefined") return;
 
   const favoriteMovies = localStorage.getItem("favorite-movies");
 

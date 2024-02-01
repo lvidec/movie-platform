@@ -10,19 +10,18 @@ import { Button } from "@/components/ui/Button";
 import { IoIosArrowDropdown } from "react-icons/io";
 
 interface FilterProps {
-  title: string;
   filterStates: Record<string, boolean>;
   handleUpdateFilterState: (genre: string, checked: boolean) => void;
 }
 
-export function Filter({ title, filterStates, handleUpdateFilterState }: FilterProps) {
+export function GenreFilter({ filterStates, handleUpdateFilterState }: FilterProps) {
   const isFilterApplied = !!Object.values(filterStates).filter((value) => value === true).length;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant={isFilterApplied ? "outline" : "ghost"} className="text-2xl">
-          {title}
+        <Button variant={isFilterApplied ? "outline" : "ghost"} className="text-lg">
+          Genre
           <IoIosArrowDropdown className="ml-2" />
         </Button>
       </DropdownMenuTrigger>
