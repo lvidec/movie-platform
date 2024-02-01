@@ -3,6 +3,7 @@
 import { MovieDetails } from "@/lib/types";
 import Image from "next/image";
 import ToggleFavoredMovie from "@/components/ToggleFavoredMovie";
+import { getYearFromDate } from "@/lib/utils";
 
 interface WatchAndFavorMovieProps {
   movieDetails: MovieDetails;
@@ -12,7 +13,8 @@ export function WatchAndFavorMovie({ movieDetails }: WatchAndFavorMovieProps) {
   return (
     <>
       <h2 className="font-bold text-2xl">
-        {movieDetails.original_title} <span className="font-normal text-slate-400">({movieDetails.release_date})</span>
+        {movieDetails.original_title}{" "}
+        <span className="font-normal text-slate-400">({getYearFromDate(movieDetails.release_date)})</span>
       </h2>
       <div className="border-[1px] border-amber-300 rounded-xl w-full p-4 mt-4 relative">
         <h3 className="uppercase text-amber-300 font-bold">Watch it now</h3>

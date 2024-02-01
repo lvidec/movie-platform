@@ -31,8 +31,8 @@ export function NavigationLinks() {
         </Link>
       </li>
       <li>
-        <Link href={"/popular"} className={`${currentPath === "/popular" ? "font-semibold text-white" : ""}`}>
-          Popular
+        <Link href={"/favorites"} className={`${currentPath === "/favorites" ? "font-semibold text-white" : ""}`}>
+          Favorites
         </Link>
       </li>
     </div>

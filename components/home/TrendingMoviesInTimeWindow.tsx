@@ -2,9 +2,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { IMG_ENDPOINT, fetchTrendingMoviesInTimeWindow } from "@/lib/api/fetchMovies";
 import Image from "next/image";
 import Link from "next/link";
-import { transformTitleIntoUrl } from "@/lib/utils";
-
-//Todo: make dates display nicer
+import { getYearFromDate, transformTitleIntoUrl } from "@/lib/utils";
 
 export async function TrendingMoviesInTimeWindow() {
   const { results } = await fetchTrendingMoviesInTimeWindow("day");
@@ -24,7 +22,7 @@ export async function TrendingMoviesInTimeWindow() {
                   className="w-full h-full opacity-30 border-2 border-transparent rounded-2xl"
                 />
                 <div className="absolute top-2 flex flex-col w-full gap-5 pl-4 text-start">
-                  <p className="text-slate-400">{movie.release_date}</p>
+                  <p className="text-slate-400">{getYearFromDate(movie.release_date)}</p>
                   <p className="font-bold text-xl">{movie.title}</p>
                   <p className="text-slate-400">{movie.popularity}</p>
                   <div className="w-3/4 bg-slate-500 rounded-md flex justify-center py-2 hover:bg-amber-400 transition duration-300">
