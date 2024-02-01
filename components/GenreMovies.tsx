@@ -1,19 +1,17 @@
-import { fetchMovieGenreList } from "@/lib/api/fetchMovies";
-import { MovieResult } from "@/lib/types";
+import { Genre, MovieResult } from "@/lib/types";
 import { MoviesCarousel } from "@/components/MoviesCarousel";
 
 interface GenreMoviesProps {
   popularMovies: MovieResult[];
+  allGenres: Genre[];
 }
 
-export async function GenreMovies({ popularMovies }: GenreMoviesProps) {
-  const genres = await fetchMovieGenreList();
-
-  const comedyId = genres.genres.find((genre) => genre.name === "Comedy")?.id;
-  const horrorId = genres.genres.find((genre) => genre.name === "Horror")?.id;
-  const actionId = genres.genres.find((genre) => genre.name === "Action")?.id;
-  const dramaId = genres.genres.find((genre) => genre.name === "Drama")?.id;
-  const familyId = genres.genres.find((genre) => genre.name === "Family")?.id;
+export function GenreMovies({ popularMovies, allGenres }: GenreMoviesProps) {
+  const comedyId = allGenres.find((genre) => genre.name === "Comedy")?.id;
+  const horrorId = allGenres.find((genre) => genre.name === "Horror")?.id;
+  const actionId = allGenres.find((genre) => genre.name === "Action")?.id;
+  const dramaId = allGenres.find((genre) => genre.name === "Drama")?.id;
+  const familyId = allGenres.find((genre) => genre.name === "Family")?.id;
 
   return (
     <>

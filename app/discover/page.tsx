@@ -1,25 +1,13 @@
-import { MoviesCarousel } from "@/components/MoviesCarousel";
-import { fetchPopularMovies } from "@/lib/api/fetchMovies";
-import { GenreMovies } from "@/components/GenreMovies";
-import { Suspense } from "react";
-import { MoviesCarouselSkeleton } from "@/components/skeletons/MoviesCarouselSkeleton";
+import { fetchMovieGenreList, fetchPopularMovies } from "@/lib/api/fetchMovies";
+import { ShowMoviesByFilter } from "@/components/ShowMoviesByFilter";
 
 export default async function Page() {
   const popularMovies = await fetchPopularMovies();
+  const genres = await fetchMovieGenreList();
+
   return (
     <main className="min-h-screen flex flex-col gap-10">
-      <Suspense
-        fallback={
-          <>
-            <MoviesCarouselSkeleton />
-            <MoviesCarouselSkeleton />
-            <MoviesCarouselSkeleton />
-          </>
-        }
-      >
-        <MoviesCarousel movies={popularMovies} title="Popular movies" />
-        <GenreMovies popularMovies={popularMovies} />
-      </Suspense>
+      <ShowMoviesByFilter popularMovies={popularMovies} allGenres={genres.genres} />
     </main>
   );
 }
