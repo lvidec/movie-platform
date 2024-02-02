@@ -14,7 +14,7 @@ export function Navigation() {
         <NavigationLinks />
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant={"ghost"} className="text-lg ml-8">
+            <Button variant={"ghost"} className="ml-8">
               Favorites
               <IoIosArrowDropdown className="ml-2" size={20} />
             </Button>

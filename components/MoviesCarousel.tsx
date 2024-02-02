@@ -18,12 +18,15 @@ export function MoviesCarousel({ movies, title }: MoviesCarouselProps) {
   return (
     <div>
       <h2 className="text-3xl text-amber-300 font-bold mb-4">{title}</h2>
-      <Carousel plugins={[WheelGesturesPlugin()]}>
+      <Carousel opts={{ slidesToScroll: 3 }} plugins={[WheelGesturesPlugin()]}>
         <CarouselContent className="-ml-2 md:-ml-4">
           {movies.map((movie, idx) => (
-            <CarouselItem key={movie.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-[12.5%] relative">
+            <CarouselItem
+              key={movie.id}
+              className="pl-2 md:pl-4 basis-1/2 xs:basis-[35%] sm:basis-[30%] md:basis-[25%] lg:basis-[20%] xl:basis-[14.5%] 2xl:basis-[12.5%] relative"
+            >
               <Link href={transformTitleIntoUrl(movie.title)}>
-                <div className="w-full h-[250px] p-0 justify-start">
+                <div className="w-full xs:w-[150px] sm:w-[180px] h-[250px] p-0 justify-start">
                   <Image
                     src={`${IMG_ENDPOINT_W200}${movie.poster_path}`}
                     alt={movie.title}

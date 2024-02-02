@@ -46,7 +46,6 @@ function ToggleFavoredMovie({ movieId, children, className, anotherFuncOnClick }
     <ToggleFavoredContext.Provider value={memoizedContextValue}>
       <button
         onClick={() => {
-          console.log(movieId);
           setIsFavored(!isFavored);
           toggleFavoriteMovie(movieId);
           anotherFuncOnClick && anotherFuncOnClick();

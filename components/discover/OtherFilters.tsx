@@ -22,7 +22,7 @@ export function OtherFilters({ yearDistance, handleUpdateYearDistance }: OtherFi
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant={isFilterApplied ? "outline" : "ghost"} className="text-lg">
+        <Button variant={isFilterApplied ? "outline" : "ghost"}>
           Other filters
           <IoIosArrowDropdown className="ml-2" size={20} />
         </Button>

@@ -3,6 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { buttonVariants } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 
 export function NavigationLinks() {
   const currentPath = usePathname();
@@ -21,12 +23,21 @@ export function NavigationLinks() {
         </Link>
       </div>
       <div>
-        <Link href={"/"} className={`${currentPath === "/" ? "font-semibold text-white" : ""}`}>
+        <Link
+          href={"/"}
+          className={cn(buttonVariants({ variant: "ghost" }), currentPath === "/" ? "font-semibold text-white" : "")}
+        >
           Home
         </Link>
       </div>
       <div>
-        <Link href={"/discover"} className={`${currentPath === "/discover" ? "font-semibold text-white" : ""}`}>
+        <Link
+          href={"/discover"}
+          className={cn(
+            buttonVariants({ variant: "ghost" }),
+            currentPath === "/discover" ? "font-semibold text-white" : ""
+          )}
+        >
           Discover
         </Link>
       </div>
