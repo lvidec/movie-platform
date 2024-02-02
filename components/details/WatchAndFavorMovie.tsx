@@ -13,7 +13,7 @@ export function WatchAndFavorMovie({ movieDetails }: WatchAndFavorMovieProps) {
   return (
     <>
       <h2 className="font-bold text-2xl">
-        {movieDetails.original_title}{" "}
+        {movieDetails.original_title}
         <span className="font-normal text-slate-400">({getYearFromDate(movieDetails.release_date)})</span>
       </h2>
       <div className="border-[1px] border-amber-300 rounded-xl w-full p-4 mt-4 relative">

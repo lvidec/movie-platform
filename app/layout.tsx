@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import { ScreenContainer } from "@/components/ScreenContainer";
 import { Navigation } from "@/components/navigation/Navigation";
 import { cn } from "@/lib/utils";
+import { ReactQueryProvider } from "@/app/ReactQueryProvider";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -20,10 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(montserrat.className, "bg-slate-900 text-gray-300")}>
-        <ScreenContainer className="mt-4 ">
-          <Navigation />
-          {children}
-        </ScreenContainer>
+        <ReactQueryProvider>
+          <ScreenContainer className="mt-4 ">
+            <Navigation />
+            {children}
+          </ScreenContainer>
+        </ReactQueryProvider>
       </body>
     </html>
   );

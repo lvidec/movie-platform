@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { MovieResult } from "@/lib/types";
 import Link from "next/link";
-import { IMG_ENDPOINT } from "@/lib/api/fetchMovies";
+import { IMG_ENDPOINT_W200 } from "@/lib/api/fetchMovies";
 import { transformTitleIntoUrl } from "@/lib/utils";
 
 interface ChartCardsProps {
@@ -46,7 +46,7 @@ const ChartCard = ({ movie, idx }: ChartCardProps) => {
           {idx + 1}
         </span>
         <Image
-          src={`${IMG_ENDPOINT}${movie.poster_path}`}
+          src={`${IMG_ENDPOINT_W200}${movie.poster_path}`}
           alt={movie.title}
           width={64}
           height={80}

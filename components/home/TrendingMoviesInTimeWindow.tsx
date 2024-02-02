@@ -1,5 +1,5 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/Carousel";
-import { IMG_ENDPOINT, fetchTrendingMoviesInTimeWindow } from "@/lib/api/fetchMovies";
+import { IMG_ENDPOINT_W500, fetchTrendingMoviesInTimeWindow } from "@/lib/api/fetchMovies";
 import Image from "next/image";
 import Link from "next/link";
 import { getYearFromDate, transformTitleIntoUrl } from "@/lib/utils";
@@ -10,15 +10,16 @@ export async function TrendingMoviesInTimeWindow() {
   return (
     <Carousel>
       <CarouselContent className="-ml-2 md:-ml-4">
-        {results.map((movie) => (
+        {results.map((movie, idx) => (
           <CarouselItem key={movie.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-[32%] relative">
             <Link href={transformTitleIntoUrl(movie.title)}>
               <div className="w-full h-[200px] p-0 justify-start">
                 <Image
-                  src={`${IMG_ENDPOINT}${movie.backdrop_path}`}
+                  src={`${IMG_ENDPOINT_W500}${movie.backdrop_path}`}
                   alt={movie.title}
                   width={500}
                   height={200}
+                  loading={idx < 4 ? "eager" : "lazy"}
                   className="w-full h-full opacity-30 border-2 border-transparent rounded-2xl"
                 />
                 <div className="absolute top-2 flex flex-col w-full gap-5 pl-4 text-start">
@@ -31,6 +32,7 @@ export async function TrendingMoviesInTimeWindow() {
                       alt="disney logo"
                       height={25}
                       width={25}
+                      loading={idx < 4 ? "eager" : "lazy"}
                       className="rounded-md mr-2"
                     />
                     View

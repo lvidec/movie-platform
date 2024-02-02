@@ -34,6 +34,7 @@ export function ShowMoviesByFilter({ popularMovies, allGenres }: ShowMoviesByFil
   const [genreStates, setGenreStates] = useState<Record<string, boolean>>(default_genre_states);
   const [yearDistance, setYearDistance] = useState<YearDistance>(default_year_distance);
   const [moviesToShow, setMoviesToShow] = useState<MovieResult[]>(popularMovies);
+  
   const isFilterApplied =
     !!Object.values(genreStates).filter((value) => value === true).length ||
     yearDistance.from !== default_year_distance.from ||

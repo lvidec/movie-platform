@@ -23,9 +23,10 @@ const useToggleFavored = () => {
 interface ToggleFavoredMovieProps extends React.HTMLAttributes<HTMLDivElement> {
   movieId: string;
   children: ReactNode;
+  anotherFuncOnClick?: () => void;
 }
 
-function ToggleFavoredMovie({ movieId, children, className }: ToggleFavoredMovieProps) {
+function ToggleFavoredMovie({ movieId, children, className, anotherFuncOnClick }: ToggleFavoredMovieProps) {
   const [isFavored, setIsFavored] = useState(false);
 
   useEffect(() => {
@@ -45,8 +46,10 @@ function ToggleFavoredMovie({ movieId, children, className }: ToggleFavoredMovie
     <ToggleFavoredContext.Provider value={memoizedContextValue}>
       <button
         onClick={() => {
+          console.log(movieId);
           setIsFavored(!isFavored);
           toggleFavoriteMovie(movieId);
+          anotherFuncOnClick && anotherFuncOnClick();
         }}
         className={className}
       >

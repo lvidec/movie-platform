@@ -1,4 +1,4 @@
-export default function Page() {
+export function LoadingUI() {
   return (
     <div className="w-full h-[80vh] grid items-center justify-center">
       <div role="status">

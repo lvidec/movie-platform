@@ -8,8 +8,8 @@ export function NavigationLinks() {
   const currentPath = usePathname();
 
   return (
-    <div className="flex gap-12 items-center">
-      <li className="w-[200px] h-[40px] ">
+    <li className="flex gap-12 items-center">
+      <div className="w-[200px] h-[40px]">
         <Link href={"/"}>
           <Image
             src={"https://www.justwatch.com/appassets/img/logo/JustWatch-logo-small.webp"}
@@ -19,22 +19,17 @@ export function NavigationLinks() {
             className="w-full h-full object-contain"
           />
         </Link>
-      </li>
-      <li>
+      </div>
+      <div>
         <Link href={"/"} className={`${currentPath === "/" ? "font-semibold text-white" : ""}`}>
           Home
         </Link>
-      </li>
-      <li>
+      </div>
+      <div>
         <Link href={"/discover"} className={`${currentPath === "/discover" ? "font-semibold text-white" : ""}`}>
           Discover
         </Link>
-      </li>
-      <li>
-        <Link href={"/favorites"} className={`${currentPath === "/favorites" ? "font-semibold text-white" : ""}`}>
-          Favorites
-        </Link>
-      </li>
-    </div>
+      </div>
+    </li>
   );
 }

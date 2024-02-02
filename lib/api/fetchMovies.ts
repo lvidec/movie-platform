@@ -1,19 +1,21 @@
 import { Movies, MovieResult, MovieDetails, Genres } from "@/lib/types";
 
-export const IMG_ENDPOINT = "https://image.tmdb.org/t/p/w500/";
+export const IMG_ENDPOINT_W200 = "https://image.tmdb.org/t/p/w200/";
+export const IMG_ENDPOINT_W500 = "https://image.tmdb.org/t/p/w500/";
 export const API_ENDPOINT = "https://api.themoviedb.org/3";
 
 type TimeWindowType = "day" | "week";
 
-const options = {
+const external_options = {
   headers: {
     accept: "application/json",
     Authorization: `Bearer ${process.env.TMDB_BEARER}`,
   },
 };
 
-const fetchApi = async <T>(url: string): Promise<T> => {
+const fetchApi = async <T>(url: string, newOptions?: {}): Promise<T> => {
   try {
+    const options = newOptions ? newOptions : external_options;
     const res = await fetch(url, options);
 
     if (!res.ok) {
@@ -68,7 +70,7 @@ export const fetchPopularMovies = async (): Promise<MovieResult[]> => {
 export const fetchMovieDetailsById = async (id: number) => {
   const url = `${API_ENDPOINT}/movie/${id}`;
 
-  return fetchApi<MovieDetails>(url);
+  return fetchApi<MovieDetails>(url, optionsWithBearer);
 };
 
 export const fetchTrendingMoviesInTimeWindow = async (timeWindow: TimeWindowType) => {
@@ -81,4 +83,13 @@ export const fetchMovieGenreList = async () => {
   const url = `${API_ENDPOINT}/genre/movie/list`;
 
   return fetchApi<Genres>(url);
+};
+
+// Investigate why react query isn't working with API_KEY from process.env
+const optionsWithBearer = {
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMTcxNmFjNWE4NmY0NDA5MDg1NThhZjc2MzllMjk3YSIsInN1YiI6IjY0MzUxODViOTJlNTViMDBkNTE4Njc4ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.mPMXXXqeWdkCl-NYFAyEliQrDjjquBs7i2ZAvmkv22A",
+  },
 };

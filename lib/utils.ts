@@ -10,6 +10,14 @@ export const transformTitleIntoUrl = (title: string) => {
   return title.toLowerCase().replaceAll(" ", "-");
 };
 
+export const getmovieIdsFromLocalStorage = (): string[] => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("favorite-movies")?.split(",") ?? [];
+  }
+
+  return [];
+};
+
 export const isMovieWithIdFavored = (movieId: string) => {
   let favoriteMoviesIds = checkAndSplitMovies();
   if (!favoriteMoviesIds) return false;
