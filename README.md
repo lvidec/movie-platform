@@ -1,5 +1,22 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+### Build with docker-compose:
+
+Install [Docker](https://docs.docker.com/engine/install/) if you don't have it already, and run it
+
+Open terminal
+
+Go to the directory where you have movie-platform project saved
+
+Run command:
+```bash
+docker-compose build
+
+docker-compose up
+```
+
+Now you can successfully navigate to the address we have a running container on: [localhost](http://localhost:3003)
+
 ## Getting Started
 
 First, run the development server:
