@@ -38,7 +38,7 @@ export const fetchDiscoverMoviesPerPage = async (pageNumber: number) => {
 export const fetchPopularMoviesPerPage = async (pageNumber: number) => {
   const url = `${API_ENDPOINT}/movie/popular?page=${pageNumber}`;
 
-  return fetchApi<Movies>(url);
+  return fetchApi<Movies>(url, optionsWithBearer);
 };
 
 export const fetchDiscoverMovies = async (): Promise<MovieResult[]> => {

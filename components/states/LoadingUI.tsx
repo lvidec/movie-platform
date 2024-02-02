@@ -1,10 +1,12 @@
-export function LoadingUI() {
+import { cn } from "@/lib/utils";
+
+export function LoadingUI({ className }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className="w-full h-[80vh] grid items-center justify-center">
+    <div className={cn("w-full h-full grid items-center justify-center", className)}>
       <div role="status">
         <svg
           aria-hidden="true"
-          className="w-12 h-12 md:w-20 md:h-20 text-slate-700 animate-spin dark:text-gray-600 fill-amber-300"
+          className="w-full h-full text-slate-700 animate-spin dark:text-gray-600 fill-amber-300"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
