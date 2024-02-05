@@ -10,11 +10,15 @@ interface WatchAndFavorMovieProps {
 }
 
 export function WatchAndFavorMovie({ movieDetails }: WatchAndFavorMovieProps) {
+  console.log(movieDetails.release_date);
+
   return (
     <>
       <h2 className="font-bold text-2xl">
         {movieDetails.original_title}
-        <span className="font-normal text-slate-400">({getYearFromDate(movieDetails.release_date)})</span>
+        {movieDetails.release_date.length > 0 && (
+          <span className="font-normal text-slate-400">({getYearFromDate(movieDetails.release_date)})</span>
+        )}
       </h2>
       <div className="border-[1px] border-amber-300 rounded-xl w-full p-4 mt-4 relative">
         <h3 className="uppercase text-amber-300 font-bold">Watch it now</h3>

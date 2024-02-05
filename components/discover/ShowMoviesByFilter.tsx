@@ -22,19 +22,18 @@ export type YearDistance = {
 };
 
 export const default_year_distance: YearDistance = { from: 1920, until: 2024 };
-export const default_genre_states: Record<string, boolean> = {
-  Comedy: false,
-  Horror: false,
-  Action: false,
-  Drama: false,
-  Family: false,
-};
 
 export function ShowMoviesByFilter({ popularMovies, allGenres }: ShowMoviesByFilterProps) {
-  const [genreStates, setGenreStates] = useState<Record<string, boolean>>(default_genre_states);
+  const defaultGenreStates: Record<string, boolean> = {};
+
+  allGenres.forEach((genre) => {
+    defaultGenreStates[genre.name] = false;
+  });
+
+  const [genreStates, setGenreStates] = useState<Record<string, boolean>>(defaultGenreStates);
   const [yearDistance, setYearDistance] = useState<YearDistance>(default_year_distance);
   const [moviesToShow, setMoviesToShow] = useState<MovieResult[]>(popularMovies);
-  
+
   const isFilterApplied =
     !!Object.values(genreStates).filter((value) => value === true).length ||
     yearDistance.from !== default_year_distance.from ||
@@ -53,6 +52,8 @@ export function ShowMoviesByFilter({ popularMovies, allGenres }: ShowMoviesByFil
 
     if (activeGenresIds.length || yearDistance !== default_year_distance) {
       const filteredMovies = popularMovies.filter((movie) => {
+        if (!movie.release_date.length) return [];
+
         const releaseYearOfMovie = Number(getYearFromDate(movie.release_date));
 
         const genresCondition =
@@ -75,6 +76,17 @@ export function ShowMoviesByFilter({ popularMovies, allGenres }: ShowMoviesByFil
     setYearDistance((prev) => ({ ...prev, from: yearDistance.from, until: yearDistance.until }));
   };
 
+  const getTitlesOfAllActiveGenres = (): string => {
+    const activeGenres = Object.entries(genreStates)
+      .filter(([genre, checked]) => checked === true)
+      .map(([genre, checked]) => genre);
+
+    return allGenres
+      .filter((genre) => activeGenres.includes(genre.name))
+      .map((genre) => genre.name)
+      .join(", ");
+  };
+
   return (
     <>
       <div className="flex gap-4 text-xl items-center">
@@ -86,7 +98,7 @@ export function ShowMoviesByFilter({ popularMovies, allGenres }: ShowMoviesByFil
             variant={"outline"}
             className="text-xl"
             onClick={() => {
-              setGenreStates(default_genre_states);
+              setGenreStates(defaultGenreStates);
               setYearDistance(default_year_distance);
               setMoviesToShow(popularMovies);
             }}
@@ -105,7 +117,10 @@ export function ShowMoviesByFilter({ popularMovies, allGenres }: ShowMoviesByFil
           </>
         }
       >
-        <MoviesCarousel movies={moviesToShow} title="Popular movies" />
+        <MoviesCarousel
+          movies={moviesToShow}
+          title={`${getTitlesOfAllActiveGenres() ? getTitlesOfAllActiveGenres() : "Popular"} movies`}
+        />
         {!isFilterApplied && <GenreMovies popularMovies={popularMovies} allGenres={allGenres} />}
       </Suspense>
     </>
