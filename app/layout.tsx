@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "@/styles/globals.css";
-import { ScreenContainer } from "@/components/ScreenContainer";
 import { Navigation } from "@/components/navigation/Navigation";
 import { cn } from "@/lib/utils";
 import { ReactQueryProvider } from "@/app/ReactQueryProvider";
+import { Footer } from "@/components/Footer";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -22,10 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(montserrat.className, "bg-slate-900 text-gray-300")}>
         <ReactQueryProvider>
-          <ScreenContainer className="mt-4 ">
-            <Navigation />
-            {children}
-          </ScreenContainer>
+          <Navigation />
+          {children}
+          <Footer />
         </ReactQueryProvider>
       </body>
     </html>
