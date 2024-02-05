@@ -5,10 +5,8 @@ import { cn } from "@/lib/utils";
 
 interface IScreenContainer extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof screenVariants> {
   children: ReactNode;
-  outerBackground?: string;
 }
 
-// Add more stylings/variants if needed
 const screenVariants = cva("", {
   variants: {
     variant: {
@@ -26,33 +24,10 @@ const screenVariants = cva("", {
   },
 });
 
-// Getting the types of a variant in screenVariants so that type assignments are dynamic
-type ExtractedVariants = NonNullable<
-  typeof screenVariants extends (props: { variant: infer V }) => unknown ? V : never
->;
-
-export function ScreenContainer({ children, outerBackground, className, variant, size, ...rest }: IScreenContainer) {
-  const defaultVariant: ExtractedVariants = variant ? variant : "centered";
-
+export function ScreenContainer({ children, className, variant, size, ...rest }: IScreenContainer) {
   return (
-    <OuterScreenWrapper variant={defaultVariant} outerBackground={outerBackground}>
-      <div className={cn(screenVariants({ variant, size, className }), className)} {...rest}>
-        {children}
-      </div>
-    </OuterScreenWrapper>
+    <div className={cn(screenVariants({ variant, size, className }), className)} {...rest}>
+      {children}
+    </div>
   );
 }
-
-interface IOuterScreenWrapperProps {
-  variant: ExtractedVariants;
-  outerBackground: string | undefined;
-  children: ReactNode;
-}
-
-const OuterScreenWrapper = ({ variant, outerBackground, children }: IOuterScreenWrapperProps) => {
-  return variant === "centered" && outerBackground ? (
-    <div style={{ backgroundColor: outerBackground }}>{children}</div>
-  ) : (
-    <>{children}</>
-  );
-};

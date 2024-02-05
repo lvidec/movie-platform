@@ -1,7 +1,7 @@
 import { Movies, MovieResult, MovieDetails, Genres } from "@/lib/types";
 
-export const IMG_ENDPOINT_W200 = "https://image.tmdb.org/t/p/w200/";
-export const IMG_ENDPOINT_W500 = "https://image.tmdb.org/t/p/w500/";
+export const IMG_ENDPOINT_W200 = "https://image.tmdb.org/t/p/w200";
+export const IMG_ENDPOINT_W500 = "https://image.tmdb.org/t/p/w500";
 export const API_ENDPOINT = "https://api.themoviedb.org/3";
 
 type TimeWindowType = "day" | "week";

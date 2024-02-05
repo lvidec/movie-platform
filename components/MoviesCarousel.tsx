@@ -18,7 +18,7 @@ export function MoviesCarousel({ movies, title }: MoviesCarouselProps) {
   return (
     <div>
       <h2 className="text-3xl text-amber-300 font-bold mb-4">{title}</h2>
-      <Carousel opts={{ slidesToScroll: 3 }} plugins={[WheelGesturesPlugin()]}>
+      <Carousel opts={{ slidesToScroll: 3, inViewThreshold: 1 }} plugins={[WheelGesturesPlugin()]}>
         <CarouselContent className="-ml-2 md:-ml-4">
           {movies.map((movie, idx) => (
             <CarouselItem
@@ -48,8 +48,8 @@ export function MoviesCarousel({ movies, title }: MoviesCarouselProps) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className="h-[calc(100%-50px)] top-[calc(50%-25px)]" />
+        <CarouselNext className="h-[calc(100%-50px)] top-[calc(50%-25px)]" />
       </Carousel>
     </div>
   );

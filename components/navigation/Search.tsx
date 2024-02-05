@@ -3,11 +3,10 @@
 import { CiSearch } from "react-icons/ci";
 import { Input } from "@/components/ui/Input";
 import { useEffect, useRef, useState } from "react";
-// import { useDebouncedCallback } from "use-debounce";
+import { useDebouncedCallback } from "use-debounce";
 import { useQuery } from "@tanstack/react-query";
 import { IMG_ENDPOINT_W200, fetchPopularMovies } from "@/lib/api/fetchMovies";
 import { ErrorUI } from "@/components/states/ErrorUI";
-import { LoadingUI } from "@/components/states/LoadingUI";
 import { MovieResult } from "@/lib/types";
 import Image from "next/image";
 import { buttonVariants } from "@/components/ui/Button";
@@ -21,12 +20,11 @@ export function Search() {
   });
 
   const [searchValue, setSearchValue] = useState("");
-  // const [debouncedValue, setDebounceValue] = useState("");
   const [moviesToShow, setMoviesToShow] = useState<MovieResult[]>([]);
   const [showPopover, setShowPopover] = useState(false);
 
   const componentRef = useRef<HTMLLIElement>(null);
-  const searchValueRef = useRef<string>(searchValue);
+  const searchValueRef = useRef(searchValue);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -39,35 +37,34 @@ export function Search() {
 
     return () => {
       document.removeEventListener("click", handleClickOutside);
+      setMoviesToShow([]);
     };
   }, []);
 
-  //                     If we would've been using API calls for each search then debounce would become handy, now it's not that useful
-  // const handleDebouncing = useDebouncedCallback((value: string) => {
-  //   if (isSuccess && debouncedValue.length > 1) {
-  //     console.log(
-  //       data
-  //         .filter((movie) => movie.title.toLowerCase().includes(debouncedValue.toLowerCase()))
-  //         .map((movie) => movie.title)
-  //     );
+  //  If we would've been using API calls for each search then debounce would become more handy
+  const handleDebouncing = useDebouncedCallback((value: string) => {
+    if (isSuccess && searchValue.length > 2) {
+      setMoviesToShow(
+        data.filter((movie) => {
+          const searchWords = searchValue.toLowerCase().split(" ");
 
-  //     setMoviesToShow(data.filter((movie) => movie.title.toLowerCase().startsWith(debouncedValue.toLowerCase())));
-  //   }
-  //   setDebounceValue(value);
-  // }, 300);
+          return searchWords.every((word) => movie.title.toLowerCase().includes(word));
+        })
+      );
+    }
+  }, 500);
 
   const handleSearch = (value: string) => {
-    // handleDebouncing(value);
-    if (isSuccess) {
-      setMoviesToShow(data.filter((movie) => movie.title.toLowerCase().startsWith(searchValue.toLowerCase())));
-    }
+    handleDebouncing(value);
     setSearchValue(value);
     searchValueRef.current = searchValue;
   };
 
-  if (isError) return <ErrorUI />;
+  const removeSearchValues = () => {
+    setSearchValue("");
+  };
 
-  if (isLoading) return <LoadingUI className="h-10 w-10" />;
+  if (isError) return <ErrorUI />;
 
   return (
     <li className="ml-8 w-full h-[40px] relative mr-4" ref={componentRef}>
@@ -77,6 +74,7 @@ export function Search() {
       <Input
         type="search"
         id="search"
+        disabled={isLoading}
         placeholder="Search your favorite movies"
         className="bg-transparent bg-amber-100 border-none bg-opacity-5 pl-8 w-full h-full"
         value={searchValue}
@@ -85,11 +83,10 @@ export function Search() {
           handleSearch(e.target.value);
         }}
       ></Input>
-      {/* {debouncedValue.length > 1 && ( */}
-      {searchValue.length > 1 && showPopover && (
+      {searchValue.length > 2 && showPopover && (
         <div className="bg-slate-900 relative z-50 mt-4 max-h-[75vh] overflow-y-scroll">
           {moviesToShow.map((movie) => (
-            <SearchMovie key={movie.id} movie={movie} setSearchValue={setSearchValue} />
+            <SearchMovie key={movie.id} movie={movie} handleLinkClick={removeSearchValues} />
           ))}
         </div>
       )}
@@ -100,18 +97,16 @@ export function Search() {
 
 interface SearchMovieProps {
   movie: MovieResult;
-  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+  handleLinkClick: () => void;
 }
 
-const SearchMovie = ({ movie, setSearchValue }: SearchMovieProps) => {
+const SearchMovie = ({ movie, handleLinkClick }: SearchMovieProps) => {
   return (
     <div key={movie.id} className="mb-2 flex">
       <Link
         href={transformTitleIntoUrl(movie.title)}
         className={cn(buttonVariants({ variant: "outline" }), "!w-full !h-full py-2")}
-        onClick={() => {
-          setSearchValue("");
-        }}
+        onClick={handleLinkClick}
       >
         <Image
           src={IMG_ENDPOINT_W200 + movie.poster_path}

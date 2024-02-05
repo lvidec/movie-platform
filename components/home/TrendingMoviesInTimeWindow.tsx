@@ -11,7 +11,7 @@ export async function TrendingMoviesInTimeWindow() {
     <Carousel>
       <CarouselContent className="-ml-2 md:-ml-4">
         {results.map((movie, idx) => (
-          <CarouselItem key={movie.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-[32%] relative">
+          <CarouselItem key={movie.id} className="pl-2 sm:pl-4 sm:basis-1/2 lg:basis-[32%] relative">
             <Link href={transformTitleIntoUrl(movie.title)}>
               <div className="w-full h-[200px] p-0 justify-start">
                 <Image
