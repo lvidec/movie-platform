@@ -40,7 +40,7 @@ export function FavoriteMovieDetails({ movieId, setFavoriteMovieIds }: FavoriteM
 
   if (isError) return <ErrorUI />;
 
-  if (isLoading) return <LoadingUI />;
+  if (isLoading) return <LoadingUI className="w-16 h-16 m-auto mb-4" />;
 
   return (
     <div className="border-b-2 pb-4 flex">

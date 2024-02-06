@@ -18,7 +18,15 @@ export function MoviesCarousel({ movies, title }: MoviesCarouselProps) {
   return (
     <div>
       <h2 className="text-3xl text-amber-300 font-bold mb-4">{title}</h2>
-      <Carousel opts={{ slidesToScroll: 3, inViewThreshold: 1 }} plugins={[WheelGesturesPlugin()]}>
+      <Carousel
+        opts={{
+          slidesToScroll: 3,
+          breakpoints: {
+            "(max-width: 640px)": { slidesToScroll: 1 },
+          },
+        }}
+        plugins={[WheelGesturesPlugin()]}
+      >
         <CarouselContent className="-ml-2 md:-ml-4">
           {movies.map((movie, idx) => (
             <CarouselItem

@@ -27,6 +27,9 @@ export function ShowMoviesByFilter({ popularMovies, allGenres }: ShowMoviesByFil
   const defaultGenreStates: Record<string, boolean> = {};
 
   allGenres.forEach((genre) => {
+    const genreMovies = popularMovies.filter((movie) => movie.genre_ids.includes(genre.id));
+    if (!genreMovies.length) return;
+
     defaultGenreStates[genre.name] = false;
   });
 
@@ -34,23 +37,41 @@ export function ShowMoviesByFilter({ popularMovies, allGenres }: ShowMoviesByFil
   const [yearDistance, setYearDistance] = useState<YearDistance>(default_year_distance);
   const [moviesToShow, setMoviesToShow] = useState<MovieResult[]>(popularMovies);
 
-  const isFilterApplied =
-    !!Object.values(genreStates).filter((value) => value === true).length ||
-    yearDistance.from !== default_year_distance.from ||
-    yearDistance.until !== default_year_distance.until;
+  const isGenreFilterApplied = !!Object.values(genreStates).filter((value) => value === true).length;
+  const isYearDistanceFilterApplied =
+    yearDistance.from !== default_year_distance.from || yearDistance.until !== default_year_distance.until;
 
-  useEffect(() => {
-    const getIdsOfAllActiveGenres = (): number[] => {
-      const activeGenres = Object.entries(genreStates)
-        .filter(([genre, checked]) => checked === true)
-        .map(([genre, checked]) => genre);
+  const isFilterApplied = isGenreFilterApplied || isYearDistanceFilterApplied;
 
-      return allGenres.filter((genre) => activeGenres.includes(genre.name)).map((genre) => genre.id);
-    };
+  const updateGenreState = (genre: string, checked: boolean) => {
+    setGenreStates((prev) => {
+      const updatedGenre = { ...prev, [genre]: checked };
+      handleUpdateOfFilters(updatedGenre);
+      return updatedGenre;
+    });
+  };
 
-    const activeGenresIds = getIdsOfAllActiveGenres();
+  const updateYearDistance = (yearDistance: YearDistance) => {
+    setYearDistance((prev) => {
+      const updatedYear = { ...prev, from: yearDistance.from, until: yearDistance.until };
+      handleUpdateOfFilters(updatedYear);
+      return updatedYear;
+    });
+  };
 
-    if (activeGenresIds.length || yearDistance !== default_year_distance) {
+  const handleUpdateOfFilters = (updatedState: Record<string, boolean> | YearDistance) => {
+    let updatedGenre: Record<string, boolean> = genreStates;
+    let updatedYearDistance: YearDistance = yearDistance;
+
+    if (isYearDistance(updatedState)) updatedYearDistance = updatedState;
+    else updatedGenre = updatedState;
+
+    const activeGenres = Object.entries(updatedGenre)
+      .filter(([genre, checked]) => checked === true)
+      .map(([genre, checked]) => genre);
+    const activeGenresIds = allGenres.filter((genre) => activeGenres.includes(genre.name)).map((genre) => genre.id);
+
+    if (activeGenresIds.length || updatedYearDistance !== default_year_distance) {
       const filteredMovies = popularMovies.filter((movie) => {
         if (!movie.release_date.length) return [];
 
@@ -58,22 +79,18 @@ export function ShowMoviesByFilter({ popularMovies, allGenres }: ShowMoviesByFil
 
         const genresCondition =
           activeGenresIds.length === 0 || activeGenresIds.some((id) => movie.genre_ids.includes(id));
-
-        const yearsCondition = yearDistance.from <= releaseYearOfMovie && releaseYearOfMovie <= yearDistance.until;
+        const yearsCondition =
+          updatedYearDistance.from <= releaseYearOfMovie && releaseYearOfMovie <= updatedYearDistance.until;
 
         return genresCondition && yearsCondition;
       });
 
       setMoviesToShow(filteredMovies);
     }
-  }, [genreStates, popularMovies, allGenres, yearDistance]);
-
-  const updateGenreState = (genre: string, checked: boolean) => {
-    setGenreStates((prev) => ({ ...prev, [genre]: checked }));
   };
 
-  const updateYearDistance = (yearDistance: YearDistance) => {
-    setYearDistance((prev) => ({ ...prev, from: yearDistance.from, until: yearDistance.until }));
+  const isYearDistance = (value: YearDistance | Record<string, boolean>): value is YearDistance => {
+    return "from" in value && "until" in value;
   };
 
   const getTitlesOfAllActiveGenres = (): string => {
@@ -89,24 +106,26 @@ export function ShowMoviesByFilter({ popularMovies, allGenres }: ShowMoviesByFil
 
   return (
     <>
-      <div className="flex gap-4 text-xl items-center">
-        <p className="mr-8">Filters:</p>
-        <GenreFilter filterStates={genreStates} handleUpdateFilterState={updateGenreState} />
-        <OtherFilters yearDistance={yearDistance} handleUpdateYearDistance={updateYearDistance} />
-        {isFilterApplied && (
-          <Button
-            variant={"outline"}
-            className="text-xl"
-            onClick={() => {
-              setGenreStates(defaultGenreStates);
-              setYearDistance(default_year_distance);
-              setMoviesToShow(popularMovies);
-            }}
-          >
-            Reset
-            <CiCircleRemove className="ml-2" size={20} />
-          </Button>
-        )}
+      <div className="flex gap-4 text-md sm:text-xl items-center">
+        <p className="mr-4">Filters:</p>
+        <div className="flex flex-col xs:flex-row gap-3">
+          <GenreFilter filterStates={genreStates} handleUpdateFilterState={updateGenreState} />
+          <OtherFilters yearDistance={yearDistance} handleUpdateYearDistance={updateYearDistance} />
+          {isFilterApplied && (
+            <Button
+              variant={"outline"}
+              className="text-md sm:text-xl"
+              onClick={() => {
+                setGenreStates(defaultGenreStates);
+                setYearDistance(default_year_distance);
+                setMoviesToShow(popularMovies);
+              }}
+            >
+              Reset
+              <CiCircleRemove className="ml-2" size={20} />
+            </Button>
+          )}
+        </div>
       </div>
       <Suspense
         fallback={
@@ -119,7 +138,9 @@ export function ShowMoviesByFilter({ popularMovies, allGenres }: ShowMoviesByFil
       >
         <MoviesCarousel
           movies={moviesToShow}
-          title={`${getTitlesOfAllActiveGenres() ? getTitlesOfAllActiveGenres() : "Popular"} movies`}
+          title={`${isGenreFilterApplied ? getTitlesOfAllActiveGenres() : "Popular"} ${
+            isYearDistanceFilterApplied ? `(${yearDistance.from} - ${yearDistance.until})` : ""
+          } movies`}
         />
         {!isFilterApplied && <GenreMovies popularMovies={popularMovies} allGenres={allGenres} />}
       </Suspense>

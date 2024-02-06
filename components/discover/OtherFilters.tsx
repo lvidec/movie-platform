@@ -8,6 +8,7 @@ import { IoIosArrowDropdown } from "react-icons/io";
 import { default_year_distance, YearDistance } from "@/components/discover/ShowMoviesByFilter";
 import { FaCheckCircle } from "react-icons/fa";
 import { useState } from "react";
+import { PopoverClose } from "@radix-ui/react-popover";
 
 interface OtherFiltersProps {
   yearDistance: YearDistance;
@@ -53,13 +54,17 @@ export function OtherFilters({ yearDistance, handleUpdateYearDistance }: OtherFi
             </div>
             <div className="flex justify-end items-center mt-4">
               Apply Filter:
-              <Button
-                variant={"outline"}
-                className="w-16 ml-4 hover:bg-slate-800"
-                onClick={() => handleUpdateYearDistance(filterDistance)}
-              >
-                <FaCheckCircle size={25} className="text-amber-300" />
-              </Button>
+              <PopoverClose>
+                <Button
+                  variant={"outline"}
+                  className="w-16 ml-4 hover:bg-slate-800"
+                  onClick={() => {
+                    handleUpdateYearDistance(filterDistance);
+                  }}
+                >
+                  <FaCheckCircle size={25} className="text-amber-300" />
+                </Button>
+              </PopoverClose>
             </div>
           </div>
         </div>
