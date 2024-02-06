@@ -11,14 +11,9 @@ export function GenreMovies({ popularMovies, allGenres }: GenreMoviesProps) {
     <>
       {allGenres.map((genre) => {
         const genreMovies = popularMovies.filter((movie) => movie.genre_ids.includes(genre.id));
+        if (!genreMovies.length) return;
 
-        return (
-          <>
-            {!!genreMovies.length && (
-              <MoviesCarousel key={genre.id} movies={genreMovies} title={`${genre.name} movies`} />
-            )}
-          </>
-        );
+        return <MoviesCarousel key={genre.id} movies={genreMovies} title={`${genre.name} movies`} />;
       })}
     </>
   );

@@ -127,23 +127,14 @@ export function ShowMoviesByFilter({ popularMovies, allGenres }: ShowMoviesByFil
           )}
         </div>
       </div>
-      <Suspense
-        fallback={
-          <>
-            <MoviesCarouselSkeleton />
-            <MoviesCarouselSkeleton />
-            <MoviesCarouselSkeleton />
-          </>
-        }
-      >
-        <MoviesCarousel
-          movies={moviesToShow}
-          title={`${isGenreFilterApplied ? getTitlesOfAllActiveGenres() : "Popular"} ${
-            isYearDistanceFilterApplied ? `(${yearDistance.from} - ${yearDistance.until})` : ""
-          } movies`}
-        />
-        {!isFilterApplied && <GenreMovies popularMovies={popularMovies} allGenres={allGenres} />}
-      </Suspense>
+
+      <MoviesCarousel
+        movies={moviesToShow}
+        title={`${isGenreFilterApplied ? getTitlesOfAllActiveGenres() : "Popular"} ${
+          isYearDistanceFilterApplied ? `(${yearDistance.from} - ${yearDistance.until})` : ""
+        } movies`}
+      />
+      {!isFilterApplied && <GenreMovies popularMovies={popularMovies} allGenres={allGenres} />}
     </>
   );
 }

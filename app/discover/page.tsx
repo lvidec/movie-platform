@@ -1,6 +1,8 @@
 import { fetchMovieGenreList, fetchPopularMovies } from "@/lib/api/fetchMovies";
 import { ShowMoviesByFilter } from "@/components/discover/ShowMoviesByFilter";
 import { ScreenContainer } from "@/components/ScreenContainer";
+import { Suspense } from "react";
+import { MoviesCarouselSkeleton } from "@/components/skeletons/MoviesCarouselSkeleton";
 
 export default async function Page() {
   const popularMovies = await fetchPopularMovies();
@@ -9,7 +11,17 @@ export default async function Page() {
   return (
     <ScreenContainer>
       <main className="min-h-screen flex flex-col gap-10">
-        <ShowMoviesByFilter popularMovies={popularMovies} allGenres={genres.genres} />
+        <Suspense
+          fallback={
+            <>
+              <MoviesCarouselSkeleton />
+              <MoviesCarouselSkeleton />
+              <MoviesCarouselSkeleton />
+            </>
+          }
+        >
+          <ShowMoviesByFilter popularMovies={popularMovies} allGenres={genres.genres} />
+        </Suspense>
       </main>
     </ScreenContainer>
   );
