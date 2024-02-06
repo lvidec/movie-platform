@@ -14,6 +14,7 @@ export default async function Page() {
         <Suspense
           fallback={
             <>
+              <p className="text-md sm:text-xl mb-10">Filters:</p>
               <MoviesCarouselSkeleton />
               <MoviesCarouselSkeleton />
               <MoviesCarouselSkeleton />

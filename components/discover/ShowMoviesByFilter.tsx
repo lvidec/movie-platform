@@ -104,6 +104,12 @@ export function ShowMoviesByFilter({ popularMovies, allGenres }: ShowMoviesByFil
       .join(", ");
   };
 
+  const resetFilters = () => {
+    setGenreStates(defaultGenreStates);
+    setYearDistance(default_year_distance);
+    setMoviesToShow(popularMovies);
+  };
+
   return (
     <>
       <div className="flex gap-4 text-md sm:text-xl items-center">
@@ -112,15 +118,7 @@ export function ShowMoviesByFilter({ popularMovies, allGenres }: ShowMoviesByFil
           <GenreFilter filterStates={genreStates} handleUpdateFilterState={updateGenreState} />
           <OtherFilters yearDistance={yearDistance} handleUpdateYearDistance={updateYearDistance} />
           {isFilterApplied && (
-            <Button
-              variant={"outline"}
-              className="text-md sm:text-xl"
-              onClick={() => {
-                setGenreStates(defaultGenreStates);
-                setYearDistance(default_year_distance);
-                setMoviesToShow(popularMovies);
-              }}
-            >
+            <Button variant={"outline"} className="text-md sm:text-xl" onClick={resetFilters}>
               Reset
               <CiCircleRemove className="ml-2" size={20} />
             </Button>
