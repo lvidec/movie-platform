@@ -1,12 +1,21 @@
-version: "3.5"
+version: "3.8"
 
 services:
-  app:
+  movie-platform:
+    image: movie-platform-next-image
+    container_name: docker-next
+    restart: unless-stopped
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: docker-next
     ports:
-      - "3003:3003"
+      - "3001:3001"
     volumes:
       - .:/app
+      - /app/node_modules
+
+# RECOMMENDED INTERACTION
+# START:  docker-compose up
+# PAUSE:  docker-compose stop
+# RESUME: docker-compose start
+# CLEAN:  docker-compose down --volumes
