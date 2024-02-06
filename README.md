@@ -1,5 +1,18 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+### Running movie-platform locally: 
+
+You have to make sure that you have Node.js version larger than v18.17.0 since Node.js version >= v18.17.0 is required to run the Next.js 14.
+
+```bash
+npm run build
+# build the project
+npm run start
+# run it on port 3001
+```
+
+Now you can successfully navigate to the address: [http://localhost:3001](http://localhost:3001)
+
 ### Build with docker-compose:
 
 Install [Docker](https://docs.docker.com/engine/install/) if you don't have it already, and run it
