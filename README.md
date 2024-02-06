@@ -7,8 +7,10 @@ You have to make sure that you have Node.js version larger than v18.17.0 since N
 ```bash
 git clone https://github.com/Leonardo-Videc/movie-platform.git
 # clone the repository
+
 cd movie-platform
 # go into a directory where the project is located
+
 npm install
 # install all the neccessary dependencies
 ```
@@ -17,6 +19,7 @@ Now create a .env file in the movie-platform directory containing:
 
 ```js
 TMDB_API_KEY="your-the-movie-database-api-key"
+
 TMDB_BEARER="your-bearer-token"
 ```
 
@@ -25,6 +28,7 @@ Both of them can be found in the [https://www.themoviedb.org/](https://www.themo
 ```bash
 npm run build
 # build the project
+
 npm run start
 # run it on port 3001
 ```
