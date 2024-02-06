@@ -15,7 +15,7 @@ export function Favorites() {
   if (!favoriteMovieIds.length) return <p>No Favorites Selected</p>;
 
   return (
-    <div className="flex flex-col gap-4 min-w-[200px] max-h-[400px] overflow-y-scroll">
+    <div className="flex flex-col gap-4 min-w-[300px] max-h-[400px] overflow-y-scroll">
       {favoriteMovieIds.map((favoriteMovieId) => (
         <FavoriteMovieDetails
           key={favoriteMovieId}
