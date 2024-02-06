@@ -5,6 +5,24 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 You have to make sure that you have Node.js version larger than v18.17.0 since Node.js version >= v18.17.0 is required to run the Next.js 14.
 
 ```bash
+git clone https://github.com/Leonardo-Videc/movie-platform.git
+# clone the repository
+cd movie-platform
+# go into a directory where the project is located
+npm install
+# install all the neccessary dependencies
+```
+
+Now create a .env file in the movie-platform directory containing:
+
+```js
+TMDB_API_KEY="your-the-movie-database-api-key"
+TMDB_BEARER="your-bearer-token"
+```
+
+Both of them can be found in the [https://www.themoviedb.org/](https://www.themoviedb.org/) where you first have to login.
+
+```bash
 npm run build
 # build the project
 npm run start
