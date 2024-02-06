@@ -67,7 +67,7 @@ export function Search() {
   if (isError) return <ErrorUI />;
 
   return (
-    <li className="ml-8 w-full h-[40px] relative mr-4" ref={componentRef}>
+    <li className="w-full h-[40px] relative mr-4" ref={componentRef}>
       <label htmlFor="search" className="sr-only">
         Search
       </label>
@@ -105,7 +105,7 @@ const SearchMovie = ({ movie, handleLinkClick }: SearchMovieProps) => {
     <div key={movie.id} className="mb-2 flex">
       <Link
         href={transformTitleIntoUrl(movie.title)}
-        className={cn(buttonVariants({ variant: "outline" }), "!w-full !h-full py-2")}
+        className={cn(buttonVariants({ variant: "outline" }), "!w-full !h-full py-2 px-1")}
         onClick={handleLinkClick}
       >
         <Image
@@ -113,10 +113,10 @@ const SearchMovie = ({ movie, handleLinkClick }: SearchMovieProps) => {
           alt={movie.title + "logo"}
           width={50}
           height={100}
-          className="rounded-md w-[100px] h-[150px] hidden sm:block"
+          className="rounded-md w-[100px] h-[150px]"
         />
-        <div className="flex mt-4 w-full items-center justify-center relative">
-          <p className="text-lg p-1 border-slate-200">{movie.title}</p>
+        <div className="flex w-full items-center justify-center relative">
+          <p className="text-sm sm:text-md border-slate-200 whitespace-break-spaces text-center">{movie.title}</p>
         </div>
       </Link>
     </div>

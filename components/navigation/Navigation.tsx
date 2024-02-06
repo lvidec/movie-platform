@@ -10,13 +10,13 @@ import { ScreenContainer } from "@/components/ScreenContainer";
 
 export function Navigation() {
   return (
-    <nav className="mb-12 mt-4">
+    <nav className="lg:mb-12 mb-6 mt-4">
       <ScreenContainer>
-        <ul className="flex justify-between text-lg text-slate-400">
+        <ul className="lg:flex lg:justify-between text-sm sm:text-md text-slate-400 relative">
           <NavigationLinks />
           <Popover>
             <PopoverTrigger asChild>
-              <Button variant={"ghost"} className="ml-8">
+              <Button variant={"ghost"} className="lg:mx-8 text-center m-auto mb-4 lg:mb-0 flex">
                 Favorites
                 <IoIosArrowDropdown className="ml-2" size={20} />
               </Button>
@@ -26,7 +26,7 @@ export function Navigation() {
             </PopoverContent>
           </Popover>
           <Search />
-          <li>
+          <li className="absolute top-0 left-0 w-max lg:static">
             <Menubar>
               <MenubarMenu>
                 <MenubarTrigger>
