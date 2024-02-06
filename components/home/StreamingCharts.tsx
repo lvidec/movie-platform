@@ -13,7 +13,7 @@ export async function StreamingCharts({ movies, title }: StreamingChartsProps) {
 
   return (
     <div>
-      <h2 className="text-3xl text-amber-300 font-bold mb-4">{title}</h2>
+      <h2 className="text-2xl sm:text-3xl text-amber-300 font-bold mb-4">{title}</h2>
       <Carousel>
         <CarouselContent className="-ml-2 md:-ml-4">
           <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 relative">

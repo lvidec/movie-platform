@@ -24,7 +24,7 @@ export async function TrendingMoviesInTimeWindow() {
                 />
                 <div className="absolute top-2 flex flex-col w-full gap-5 pl-4 text-start">
                   <p className="text-slate-400">{getYearFromDate(movie.release_date)}</p>
-                  <p className="font-bold text-xl">{movie.title}</p>
+                  <p className="font-bold text-md sm:text-xl">{movie.title}</p>
                   <p className="text-slate-400">{movie.popularity}</p>
                   <div className="w-3/4 bg-slate-500 rounded-md flex justify-center py-2 hover:bg-amber-400 transition duration-300">
                     <Image

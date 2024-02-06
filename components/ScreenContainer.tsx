@@ -15,7 +15,7 @@ const screenVariants = cva("", {
     },
     size: {
       small: "xl:w-[1280px]",
-      large: "mx-5 2xl:mx-auto 2xl:w-[1580px]",
+      large: "mx-5 2xl:mx-auto 2xl:w-[1624px]",
     },
   },
   defaultVariants: {

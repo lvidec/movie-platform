@@ -16,7 +16,7 @@ export function ErrorUI({ reset }: ErrorProps) {
         className="rounded-full aspect-square"
       />
       <div>
-        <h2 className="text-2xl">Something went wrong!</h2>
+        <h2 className="text-xl sm:text-2xl">Something went wrong!</h2>
         {reset && (
           <Button variant={"default"} onClick={() => reset()}>
             Try again

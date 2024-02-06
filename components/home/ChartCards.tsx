@@ -24,7 +24,7 @@ export function ChartCards({ movies, title }: ChartCardsProps) {
           height={64}
           className="rounded-2xl"
         />
-        <span className="text-2xl font-semibold self-center">{title}</span>
+        <span className="text-xl sm:text-2xl font-semibold self-center">{title}</span>
       </div>
       {movies.slice(0, 3).map((movie, idx) => (
         <ChartCard key={movie.id} movie={movie} idx={idx} />
@@ -42,7 +42,7 @@ const ChartCard = ({ movie, idx }: ChartCardProps) => {
   return (
     <Link href={transformTitleIntoUrl(movie.title)}>
       <div className="w-full p-0 justify-start flex mb-4">
-        <span className={`text-6xl font-bold opacity-20 -tracking-[6px] self-center ${idx === 0 && "ml-3"}`}>
+        <span className={`text-5xl sm:text-6xl font-bold opacity-20 -tracking-[6px] self-center ${idx === 0 && "ml-3"}`}>
           {idx + 1}
         </span>
         <Image
@@ -52,7 +52,7 @@ const ChartCard = ({ movie, idx }: ChartCardProps) => {
           height={80}
           className="h-20 w-16 border-2 border-transparent rounded-2xl"
         />
-        <div className="self-center ml-4 text-lg">
+        <div className="self-center ml-4 text-sm sm:text-md">
           <p>{movie.title}</p>
           <p className="text-slate-400 mt-1">{movie.popularity}</p>
         </div>

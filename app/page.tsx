@@ -15,8 +15,8 @@ export default async function Home() {
   return (
     <ScreenContainer>
       <main className="min-h-screen flex flex-col gap-12">
-        <h1 className="text-4xl font-bold mb-6">
-          <span className="text-amber-300 mr-2">Trending daily</span> <FaRegCalendarCheck className="inline" />
+        <h1 className="sm:text-4xl text-3xl font-bold mb-6">
+          <span className=" mr-2">Trending daily</span> <FaRegCalendarCheck className="inline" />
         </h1>
 
         <Suspense

@@ -17,7 +17,7 @@ interface MoviesCarouselProps {
 export function MoviesCarousel({ movies, title }: MoviesCarouselProps) {
   return (
     <div>
-      <h2 className="text-3xl text-amber-300 font-bold mb-4">{title}</h2>
+      <h2 className="text-2xl sm:text-3xl text-amber-300 font-bold mb-4">{title}</h2>
       <Carousel
         opts={{
           slidesToScroll: 3,
