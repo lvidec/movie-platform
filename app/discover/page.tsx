@@ -1,6 +1,6 @@
 import { fetchMovieGenreList, fetchPopularMovies } from "@/lib/api/fetchMovies";
 import { ShowMoviesByFilter } from "@/components/discover/ShowMoviesByFilter";
-import { ScreenContainer } from "@/components/ScreenContainer";
+import { ScreenContainer } from "@/components/layout/ScreenContainer";
 import { Suspense } from "react";
 import { MoviesCarouselSkeleton } from "@/components/skeletons/MoviesCarouselSkeleton";
 

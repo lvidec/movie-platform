@@ -1,6 +1,6 @@
 import { buttonVariants } from "@/components/ui/Button";
 import Link from "next/link";
-import { ScreenContainer } from "@/components/ScreenContainer";
+import { ScreenContainer } from "@/components/layout/ScreenContainer";
 
 export function Footer() {
   return (

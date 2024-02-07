@@ -4,7 +4,7 @@ import "@/styles/globals.css";
 import { Navigation } from "@/components/navigation/Navigation";
 import { cn } from "@/lib/utils";
 import { ReactQueryProvider } from "@/app/ReactQueryProvider";
-import { Footer } from "@/components/Footer";
+import { Footer } from "@/components/layout/Footer";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 

@@ -6,7 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/Popover
 import { Button } from "@/components/ui/Button";
 import { IoIosArrowDropdown } from "react-icons/io";
 import { Favorites } from "@/components/navigation/Favorites";
-import { ScreenContainer } from "@/components/ScreenContainer";
+import { ScreenContainer } from "@/components/layout/ScreenContainer";
 
 export function Navigation() {
   return (

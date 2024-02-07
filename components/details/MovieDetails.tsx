@@ -2,7 +2,7 @@ import Image from "next/image";
 import { IMG_ENDPOINT_W200, IMG_ENDPOINT_W500 } from "@/lib/api/fetchMovies";
 import { MovieDetails } from "@/lib/types";
 import { WatchAndFavorMovie } from "@/components/details/WatchAndFavorMovie";
-import { ScreenContainer } from "@/components/ScreenContainer";
+import { ScreenContainer } from "@/components/layout/ScreenContainer";
 
 interface MovieDetailsProps {
   movieDetails: MovieDetails;

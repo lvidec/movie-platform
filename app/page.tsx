@@ -7,7 +7,7 @@ import { Suspense } from "react";
 import { TrendingMoviesSkeleton } from "@/components/skeletons/TrendingMoviesSkeleton";
 import { StreamingChartsSkeleton } from "@/components/skeletons/StreamingChartsSkeleton";
 import { MoviesCarouselSkeleton } from "@/components/skeletons/MoviesCarouselSkeleton";
-import { ScreenContainer } from "@/components/ScreenContainer";
+import { ScreenContainer } from "@/components/layout/ScreenContainer";
 
 export default async function Home() {
   const popularMovies = await fetchDiscoverMovies();
