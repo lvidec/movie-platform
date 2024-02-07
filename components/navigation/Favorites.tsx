@@ -1,6 +1,6 @@
 "use client";
 
-import { getmovieIdsFromLocalStorage } from "@/lib/utils";
+import { getmovieIdsFromLocalStorage, transformTitleIntoUrl } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { IMG_ENDPOINT_W200, fetchMovieDetailsById } from "@/lib/api/fetchMovies";
 import { ErrorUI } from "@/components/states/ErrorUI";
@@ -8,6 +8,8 @@ import Image from "next/image";
 import { LoadingUI } from "@/components/states/LoadingUI";
 import ToggleFavoredMovie from "@/components/ToggleFavoredMovie";
 import { useState } from "react";
+import { PopoverClose } from "@radix-ui/react-popover";
+import { useRouter } from "next/navigation";
 
 export function Favorites() {
   const [favoriteMovieIds, setFavoriteMovieIds] = useState<string[]>(getmovieIdsFromLocalStorage());
@@ -37,24 +39,35 @@ export function FavoriteMovieDetails({ movieId, setFavoriteMovieIds }: FavoriteM
     queryKey: ["movies", { movieId }],
     queryFn: () => fetchMovieDetailsById(movieId),
   });
+  const router = useRouter();
 
   if (isError) return <ErrorUI />;
 
   if (isLoading) return <LoadingUI className="w-16 h-16 m-auto mb-4" />;
 
+  const handlePopoverClose = () => {
+    if (!data) return;
+
+    router.push(transformTitleIntoUrl(data.title));
+  };
+
   return (
     <div className="border-b-2 pb-4 flex">
       {data && (
         <>
-          <Image
-            src={IMG_ENDPOINT_W200 + data.poster_path}
-            alt={data.title + "logo"}
-            width={50}
-            height={100}
-            className="rounded-md w-[100px] mr-4 h-[150px]"
-          />
+          <PopoverClose onClick={handlePopoverClose}>
+            <Image
+              src={IMG_ENDPOINT_W200 + data.poster_path}
+              alt={data.title + "logo"}
+              width={50}
+              height={100}
+              className="rounded-md w-[100px] mr-4 h-[150px] pointer-events-none"
+            />
+          </PopoverClose>
           <div className="flex mt-4 w-full items-end justify-center relative">
-            <p className="border-[1px] p-1 border-slate-200">{data.title}</p>
+            <PopoverClose onClick={handlePopoverClose}>
+              <p className="border-[1px] p-1 border-slate-200">{data.title}</p>
+            </PopoverClose>
             <ToggleFavoredMovie
               movieId={data.id.toString()}
               anotherFuncOnClick={() => {
