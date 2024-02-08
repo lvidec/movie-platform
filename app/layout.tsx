@@ -5,6 +5,7 @@ import { Navigation } from "@/components/navigation/Navigation";
 import { cn } from "@/lib/utils";
 import { ReactQueryProvider } from "@/app/ReactQueryProvider";
 import { Footer } from "@/components/layout/Footer";
+import { FavoritesContextProvider } from "@/context/FavoritesContext";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -21,11 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(montserrat.className, "bg-slate-900 text-gray-300")}>
-        <ReactQueryProvider>
-          <Navigation />
+        <FavoritesContextProvider>
+          <ReactQueryProvider>
+            <Navigation />
+          </ReactQueryProvider>
           {children}
           <Footer />
-        </ReactQueryProvider>
+        </FavoritesContextProvider>
       </body>
     </html>
   );

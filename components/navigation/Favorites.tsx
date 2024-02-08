@@ -12,7 +12,7 @@ import { PopoverClose } from "@radix-ui/react-popover";
 import { useRouter } from "next/navigation";
 
 export function Favorites() {
-  const [favoriteMovieIds, setFavoriteMovieIds] = useState<string[]>(getmovieIdsFromLocalStorage());
+  const [favoriteMovieIds, setFavoriteMovieIds] = useState<string[]>(getmovieIdsFromLocalStorage().reverse());
 
   if (!favoriteMovieIds.length) return <p>No Favorites Selected</p>;
 

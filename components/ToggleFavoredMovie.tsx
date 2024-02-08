@@ -1,21 +1,21 @@
 "use client";
 
-import { ReactNode, createContext, useContext, useEffect, useMemo, useState } from "react";
-import { cn, isMovieWithIdFavored, toggleFavoriteMovie } from "@/lib/utils";
+import { ReactNode, createContext, useContext, useMemo, useState } from "react";
+import { cn } from "@/lib/utils";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import { useFavorites } from "@/context/FavoritesContext";
 
-interface ToggleFavoredContextProps {
-  isFavored: boolean;
-  setIsFavored: React.Dispatch<React.SetStateAction<boolean>>;
+interface MovieIdContextProps {
+  id: number;
 }
 
-const ToggleFavoredContext = createContext<ToggleFavoredContextProps | undefined>(undefined);
+const MovieIdContext = createContext<MovieIdContextProps | undefined>(undefined);
 
-const useToggleFavored = () => {
-  const context = useContext(ToggleFavoredContext);
+const useMovieId = () => {
+  const context = useContext(MovieIdContext);
 
   if (!context) {
-    throw new Error("ToggleFavoredMovie compound components must be rendered within the ToggleFavoredMovie");
+    throw new Error("useMovieId must be used within the ToggleFavoredMovie");
   }
   return context;
 };
@@ -27,34 +27,28 @@ interface ToggleFavoredMovieProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 function ToggleFavoredMovie({ movieId, children, className, anotherFuncOnClick }: ToggleFavoredMovieProps) {
-  const [isFavored, setIsFavored] = useState(false);
+  const movieIdNum = Number(movieId);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsFavored(isMovieWithIdFavored(movieId));
-    }
-  }, [movieId]);
+  const { isFavored, addFavorite, removeFavorite } = useFavorites();
+  const [id] = useState(movieIdNum);
+
+  const handleOnClick = () => {
+    isFavored(movieIdNum) ? removeFavorite(movieIdNum) : addFavorite(movieIdNum);
+    anotherFuncOnClick && anotherFuncOnClick();
+  };
 
   const memoizedContextValue = useMemo(() => {
     return {
-      isFavored,
-      setIsFavored,
+      id,
     };
-  }, [isFavored]);
+  }, [id]);
 
   return (
-    <ToggleFavoredContext.Provider value={memoizedContextValue}>
-      <button
-        onClick={() => {
-          setIsFavored(!isFavored);
-          toggleFavoriteMovie(movieId);
-          anotherFuncOnClick && anotherFuncOnClick();
-        }}
-        className={className}
-      >
+    <MovieIdContext.Provider value={memoizedContextValue}>
+      <button onClick={handleOnClick} className={className}>
         {children}
       </button>
-    </ToggleFavoredContext.Provider>
+    </MovieIdContext.Provider>
   );
 }
 
@@ -63,17 +57,22 @@ interface FavoriteIconsProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 function FavoriteIcons({ iconSize, className }: FavoriteIconsProps) {
-  const { isFavored } = useToggleFavored();
+  const { id } = useMovieId();
+  const { isFavored } = useFavorites();
 
   return (
     <>
       <MdFavorite
         size={iconSize}
-        className={cn("transition-all duration-500 text-amber-300", className, isFavored ? "opacity-100" : "opacity-0")}
+        className={cn(
+          "transition-all duration-500 text-amber-300",
+          className,
+          isFavored(id) ? "opacity-100" : "opacity-0"
+        )}
       />
       <MdFavoriteBorder
         size={iconSize}
-        className={cn("transition-all duration-500", className, isFavored ? "opacity-0" : "opacity-100")}
+        className={cn("transition-all duration-500", className, isFavored(id) ? "opacity-0" : "opacity-100")}
       />
     </>
   );
