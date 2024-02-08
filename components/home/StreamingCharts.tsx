@@ -7,7 +7,7 @@ interface StreamingChartsProps {
   title: string;
 }
 
-export async function StreamingCharts({ movies, title }: StreamingChartsProps) {
+export function StreamingCharts({ movies, title }: StreamingChartsProps) {
   const netflixMovies = [...movies];
   const disneyMovies = [...movies];
 

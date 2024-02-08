@@ -1,16 +1,19 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/Carousel";
-import { IMG_ENDPOINT_W500, fetchTrendingMoviesInTimeWindow } from "@/lib/api/fetchMovies";
+import { IMG_ENDPOINT_W500 } from "@/lib/api/fetchMovies";
 import Image from "next/image";
 import Link from "next/link";
 import { getYearFromDate, transformTitleIntoUrl } from "@/lib/utils";
+import { MovieResult } from "@/lib/types";
 
-export async function TrendingMoviesInTimeWindow() {
-  const { results } = await fetchTrendingMoviesInTimeWindow("day");
+interface TrendingMoviesInTimeWindowProps {
+  movies: MovieResult[];
+}
 
+export function TrendingMoviesInTimeWindow({ movies }: TrendingMoviesInTimeWindowProps) {
   return (
     <Carousel>
       <CarouselContent className="-ml-2 md:-ml-4">
-        {results.map((movie, idx) => (
+        {movies.map((movie, idx) => (
           <CarouselItem key={movie.id} className="pl-2 sm:pl-4 sm:basis-1/2 lg:basis-[32%] relative">
             <Link href={transformTitleIntoUrl(movie.title)}>
               <div className="w-full h-[200px] p-0 justify-start">

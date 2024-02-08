@@ -1,6 +1,6 @@
 import { TrendingMoviesInTimeWindow } from "@/components/home/TrendingMoviesInTimeWindow";
 import { MoviesCarousel } from "@/components/MoviesCarousel";
-import { fetchDiscoverMovies } from "@/lib/api/fetchMovies";
+import { fetchDiscoverMovies, fetchTrendingMoviesInTimeWindow } from "@/lib/api/fetchMovies";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { StreamingCharts } from "@/components/home/StreamingCharts";
 import { Suspense } from "react";
@@ -11,6 +11,7 @@ import { ScreenContainer } from "@/components/layout/ScreenContainer";
 
 export default async function Home() {
   const popularMovies = await fetchDiscoverMovies();
+  const trendingMoviesInDay = await fetchTrendingMoviesInTimeWindow("day");
 
   return (
     <ScreenContainer>
@@ -28,7 +29,7 @@ export default async function Home() {
             </>
           }
         >
-          <TrendingMoviesInTimeWindow />
+          <TrendingMoviesInTimeWindow movies={trendingMoviesInDay.results} />
           <StreamingCharts movies={popularMovies} title="Streming Charts Today" />
           <MoviesCarousel movies={popularMovies} title="Discover new movies" />
         </Suspense>
