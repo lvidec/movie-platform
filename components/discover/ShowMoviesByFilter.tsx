@@ -1,8 +1,7 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { useState } from "react";
 import { GenreFilter } from "@/components/discover/GenreFilter";
-import { MoviesCarouselSkeleton } from "@/components/skeletons/MoviesCarouselSkeleton";
 import { MoviesCarousel } from "@/components/MoviesCarousel";
 import { GenreMovies } from "@/components/discover/GenreMovies";
 import { Genre, MovieResult } from "@/lib/types";

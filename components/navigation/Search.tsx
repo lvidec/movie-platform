@@ -5,21 +5,24 @@ import { Input } from "@/components/ui/Input";
 import { useEffect, useRef, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { useQuery } from "@tanstack/react-query";
-import { IMG_ENDPOINT_W200, fetchPopularMovies } from "@/lib/api/fetchMovies";
+import { IMG_ENDPOINT_W200, fetchSearchMovieByTitle } from "@/lib/api/fetchMovies";
 import { ErrorUI } from "@/components/states/ErrorUI";
 import { MovieResult } from "@/lib/types";
 import Image from "next/image";
 import { buttonVariants } from "@/components/ui/Button";
 import Link from "next/link";
 import { cn, transformTitleIntoUrl } from "@/lib/utils";
+import { LoadingUI } from "@/components/states/LoadingUI";
 
 export function Search() {
+  const [searchValue, setSearchValue] = useState("");
+
   const { data, isError, isLoading, isSuccess } = useQuery({
-    queryKey: ["all-movies"],
-    queryFn: () => fetchPopularMovies(),
+    queryKey: ["all-movies", { searchValue }],
+    queryFn: () => fetchSearchMovieByTitle(searchValue),
+    enabled: searchValue.length > 2,
   });
 
-  const [searchValue, setSearchValue] = useState("");
   const [moviesToShow, setMoviesToShow] = useState<MovieResult[]>([]);
   const [showPopover, setShowPopover] = useState(false);
 
@@ -41,21 +44,14 @@ export function Search() {
     };
   }, []);
 
-  //  If we would've been using API calls for each search then debounce would become more handy
-  const handleDebouncing = useDebouncedCallback((value: string) => {
+  const handleDebouncing = useDebouncedCallback(() => {
     if (isSuccess && searchValue.length > 2) {
-      setMoviesToShow(
-        data.filter((movie) => {
-          const searchWords = searchValue.toLowerCase().split(" ");
-
-          return searchWords.every((word) => movie.title.toLowerCase().includes(word));
-        })
-      );
+      setMoviesToShow(data.results);
     }
   }, 500);
 
   const handleSearch = (value: string) => {
-    handleDebouncing(value);
+    handleDebouncing();
     setSearchValue(value);
     searchValueRef.current = searchValue;
   };
@@ -74,7 +70,6 @@ export function Search() {
       <Input
         type="search"
         id="search"
-        disabled={isLoading}
         placeholder="Search your favorite movies"
         className="bg-transparent bg-amber-100 border-none bg-opacity-5 pl-8 w-full h-full"
         value={searchValue}
@@ -85,9 +80,13 @@ export function Search() {
       ></Input>
       {searchValue.length > 2 && showPopover && (
         <div className="bg-slate-900 relative z-50 mt-4 max-h-[75vh] overflow-y-scroll">
-          {moviesToShow.map((movie) => (
-            <SearchMovie key={movie.id} movie={movie} handleLinkClick={removeSearchValues} />
-          ))}
+          {isLoading ? (
+            <LoadingUI className="w-24 h-24 m-auto my-4" />
+          ) : (
+            moviesToShow.map((movie) => (
+              <SearchMovie key={movie.id} movie={movie} handleLinkClick={removeSearchValues} />
+            ))
+          )}
         </div>
       )}
       <CiSearch className="absolute top-[20px] -translate-y-1/2 ml-1" size={24} />
@@ -109,8 +108,8 @@ const SearchMovie = ({ movie, handleLinkClick }: SearchMovieProps) => {
         onClick={handleLinkClick}
       >
         <Image
-          src={IMG_ENDPOINT_W200 + movie.poster_path}
-          alt={movie.title + "logo"}
+          src={movie.poster_path ? IMG_ENDPOINT_W200 + movie.poster_path : 'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg'}
+          alt={movie.title + " logo"}
           width={50}
           height={100}
           className="rounded-md w-[100px] h-[150px]"

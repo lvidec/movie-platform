@@ -1,8 +1,8 @@
-import { fetchMovieDetailsById, fetchPopularMovies } from "@/lib/api/fetchMovies";
+import { fetchPopularMovies, fetchSearchMovieByTitle } from "@/lib/api/fetchMovies";
 import { transformTitleIntoUrl } from "@/lib/utils";
 import { MovieDetails } from "@/components/details/MovieDetails";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export const generateStaticParams = async (): Promise<{ movieTitle: string }[]> => {
   const allMovies = await fetchPopularMovies();
@@ -13,14 +13,17 @@ export const generateStaticParams = async (): Promise<{ movieTitle: string }[]> 
 export default async function Page({ params }: { params: { movieTitle: string } }) {
   const allMovies = await fetchPopularMovies();
 
-  const id = allMovies.find((movie) => transformTitleIntoUrl(movie.title) === params.movieTitle)?.id;
-  if (!id) return;
+  const movieResult = allMovies.find((movie) => transformTitleIntoUrl(movie.title) === params.movieTitle);
+  let backupResult;
+  if (!movieResult) {
+    backupResult = (await fetchSearchMovieByTitle(params.movieTitle)).results[0];
 
-  const movieDetails = await fetchMovieDetailsById(id);
+    return backupResult ? <MovieDetails movieResult={backupResult} /> : null;
+  }
 
   return (
     <>
-      <MovieDetails movieDetails={movieDetails} />
+      <MovieDetails movieResult={movieResult} />
     </>
   );
 }

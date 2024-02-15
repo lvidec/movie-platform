@@ -39,11 +39,12 @@ export function FavoriteMovieDetails({ movieId, setFavoriteMovieIds }: FavoriteM
     queryKey: ["movies", { movieId }],
     queryFn: () => fetchMovieDetailsById(movieId),
   });
+
   const router = useRouter();
 
   if (isError) return <ErrorUI />;
 
-  if (isLoading) return <LoadingUI className="w-16 h-16 m-auto mb-4" />;
+  if (isLoading) return <LoadingUI className="w-24 h-24 m-auto my-4" />;
 
   const handlePopoverClose = () => {
     if (!data) return;

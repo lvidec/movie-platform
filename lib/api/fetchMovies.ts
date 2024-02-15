@@ -85,6 +85,12 @@ export const fetchMovieGenreList = async () => {
   return fetchApi<Genres>(url);
 };
 
+export const fetchSearchMovieByTitle = async (title: string) => {
+  const url = `${API_ENDPOINT}/search/movie?query=${title}&language=en-US`;
+
+  return fetchApi<Movies>(url, optionsWithBearer);
+};
+
 // Investigate why react query isn't working with API_KEY from process.env
 const optionsWithBearer = {
   headers: {

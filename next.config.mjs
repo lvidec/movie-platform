@@ -24,6 +24,10 @@ const config = {
         protocol: 'https',
         hostname: 't4.ftcdn.net',
       },
+      {
+        protocol: 'https',
+        hostname: 'ih1.redbubble.net',
+      },
     ],
   },
 };
