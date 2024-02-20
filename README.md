@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+![Movie-platform--homepage](./public/Movie-platform--homepage.png)
+![Movie-platform--search/filter](./public/Movie-platform--search:filter.png)
+
+
 ### Running movie-platform locally: 
 
 You have to make sure that you have Node.js version larger than v18.17.0 since Node.js version >= v18.17.0 is required to run the Next.js 14.
